@@ -23,9 +23,6 @@ public class Recipe {
     @Enumerated(value = EnumType.STRING)
     private Difficulty difficulty;
 
-    //todo add
-    //private Difficulty difficulty;
-
     @Lob
     private Byte[] image;
 
