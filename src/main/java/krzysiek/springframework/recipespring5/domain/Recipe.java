@@ -20,6 +20,9 @@ public class Recipe {
     private String url;
     private String directions;
 
+    @Enumerated(value = EnumType.STRING)
+    private Difficulty difficulty;
+
     //todo add
     //private Difficulty difficulty;
 
@@ -118,5 +121,13 @@ public class Recipe {
 
     public void setIngredients(Set<Ingredient> ingredients) {
         this.ingredients = ingredients;
+    }
+
+    public Difficulty getDifficulty() {
+        return difficulty;
+    }
+
+    public void setDifficulty(Difficulty difficulty) {
+        this.difficulty = difficulty;
     }
 }
