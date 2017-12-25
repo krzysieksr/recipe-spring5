@@ -111,7 +111,7 @@
                         <div class="panel-body">
                             <div class="row">
                                 <div class="col-md-12">
-                                    <ul>
+                                    <ul th:if="${not #lists.isEmpty(recipe.ingredients)}">
                                         <li th:remove="all">1 szkalanka mleka</li>
                                         <li th:remove="all">1 łyżka czekolady</li>
                                         <li th:remove="all">1 łyżka cukru</li>

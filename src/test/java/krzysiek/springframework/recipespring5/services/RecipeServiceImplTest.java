@@ -1,5 +1,6 @@
 package krzysiek.springframework.recipespring5.services;
 
+import krzysiek.springframework.recipespring5.commands.RecipeCommand;
 import krzysiek.springframework.recipespring5.converters.RecipeToRecipeCommand;
 import krzysiek.springframework.recipespring5.converters.RecipeCommandToRecipe;
 import krzysiek.springframework.recipespring5.domain.Recipe;
@@ -38,7 +39,7 @@ public class RecipeServiceImplTest {
     }
 
     @Test
-    public void getRecipeList() {
+    public void getRecipeListTest() {
         Recipe recipe = new Recipe();
         HashSet recipeData = new HashSet();
 
@@ -54,7 +55,7 @@ public class RecipeServiceImplTest {
     }
 
     @Test
-    public void findById() {
+    public void findByIdTest() {
         Recipe recipe = new Recipe();
         Long id = 1L;
         Optional<Recipe> optionalRecipe = Optional.of(recipe);
@@ -63,8 +64,30 @@ public class RecipeServiceImplTest {
 
         Recipe recipeReturned = recipeService.findById(id);
 
-        assertNotNull(recipeReturned);
+        assertNotNull("Null recipe returned", recipeReturned);
         verify(recipeRepository, times(1)).findById(anyLong());
         verify(recipeRepository, never()).findAll();
     }
+
+    @Test
+    public void findRecipeCommandByIdTest() {
+        Long id = 1L;
+        Recipe recipe = new Recipe();
+        recipe.setId(id);
+        Optional<Recipe> recipeOptional = Optional.of(recipe);
+
+        when(recipeRepository.findById(anyLong())).thenReturn(recipeOptional);
+
+        RecipeCommand recipeCommand = new RecipeCommand();
+        recipeCommand.setId(id);
+
+        when(recipeToRecipeCommand.convert(any())).thenReturn(recipeCommand);
+
+        RecipeCommand recipeCommandById = recipeService.findCommandById(id);
+
+        assertNotNull("Null recipe returned", recipeCommandById);
+        verify(recipeRepository, times(1)).findById(anyLong());
+        verify(recipeRepository, never()).findAll();
+    }
+
 }
