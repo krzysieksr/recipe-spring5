@@ -1,6 +1,8 @@
 package krzysiek.springframework.recipespring5.controllers;
 
 import krzysiek.springframework.recipespring5.commands.IngredientCommand;
+import krzysiek.springframework.recipespring5.commands.RecipeCommand;
+import krzysiek.springframework.recipespring5.commands.UnitOfMeasureCommand;
 import krzysiek.springframework.recipespring5.services.IngredientService;
 import krzysiek.springframework.recipespring5.services.RecipeService;
 import krzysiek.springframework.recipespring5.services.UnitOfMeasureService;
@@ -40,6 +42,23 @@ public class IngredientController {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
 
         return "recipe/ingredient/show";
+    }
+
+    @GetMapping
+    @RequestMapping("/{recipeId}/ingredient/new")
+    public String newIngredient(@PathVariable Long recipeId, Model model) {
+        RecipeCommand recipeCommand = recipeService.findCommandById(recipeId);
+        //todo raise exception if null
+
+        IngredientCommand ingredientCommand = new IngredientCommand();
+        ingredientCommand.setRecipeId(recipeId);
+        model.addAttribute("ingredient", ingredientCommand);
+
+        ingredientCommand.setUom(new UnitOfMeasureCommand());
+
+        model.addAttribute("uomList", unitOfMeasureService.listAllUOMs());
+
+        return "recipe/ingredient/ingredientform";
     }
 
     @GetMapping
