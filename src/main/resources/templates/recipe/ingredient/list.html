@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>Show Recipe</title>
+    <title>List ingredients</title>
     <!-- Latest compiled and minified CSS -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous"
@@ -55,18 +55,19 @@
 
                             <tr th:each="ingredient : ${recipe.ingredients}">
                                 <td th:text="${ingredient.id}">The ID</td>
+                                <!--<td th:text="${ingredient.amount} + ' ' + ${ingredient.uom.getDescription()} + ' ' + ${ingredient.description}">Taste great 3</td>-->
                                 <td th:text="${ingredient.getAmount() +
                                     ' ' + ingredient.uom.getDescription()+
                                     ' ' + ingredient.getDescription()}">Taste great 3
                                 </td>
                                 <td><a href="#"
-                                       th:href="@{'/recipe/'+${recipe.id}+'/ingredient'+${ingredient.id}+'/show'}">View</a>
+                                       th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+${ingredient.id}+'/show'}">View</a>
                                 </td>
                                 <td><a href="#"
-                                       th:href="@{'/recipe/'+${recipe.id}+'/ingredient'+${ingredient.id}+'/update'}">Update</a>
+                                       th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+${ingredient.id}+'/update'}">Update</a>
                                 </td>
                                 <td><a href="#"
-                                       th:href="@{'/recipe/'+${recipe.id}+'/ingredient'+${ingredient.id}+'/delete'}">Delete</a>
+                                       th:href="@{'/recipe/'+${recipe.id}+'/ingredient/'+${ingredient.id}+'/delete'}">Delete</a>
                                 </td>
                             </tr>
                         </table>
