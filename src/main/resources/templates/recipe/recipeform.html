@@ -21,7 +21,7 @@
     <div class="row">
         <div class="col-md-6 col-md-offset-3">
 
-            <form th:object="${recipe}" th:action="@{/recipe/}">
+            <form th:object="${recipe}" th:action="@{/recipe/}" method="post">
                 <input type="hidden" th:field="*{id}"/>
                 <div class="panel-group">
 
@@ -69,9 +69,11 @@
                                 </div>
                                 <div class="col-md-3 form-group">
                                     <label>Difficulty:</label>
-                                    <select class="form-control">
-                                        <option th:each="difficulty : ${difficult}"
-                                                th:text="${difficulty}">Options
+                                    <select class="form-control" th:field="*{difficulty}">
+                                        <option th:each="difficulty : ${T(krzysiek.springframework.recipespring5.domain.Difficulty).values()}"
+                                                th:value="${difficulty.name()}"
+                                                th:text="${difficulty.name()}"
+                                        >Options
                                         </option>
                                     </select>
                                 </div>

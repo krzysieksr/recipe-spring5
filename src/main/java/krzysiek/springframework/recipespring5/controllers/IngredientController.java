@@ -26,8 +26,8 @@ public class IngredientController {
         this.unitOfMeasureService = unitOfMeasureService;
     }
 
-    @GetMapping
-    @RequestMapping("/{recipeId}/ingredients")
+//    @GetMapping
+    @GetMapping("/{recipeId}/ingredients")
     public String listIngredients(@PathVariable Long recipeId, Model model) {
         log.debug("Getting ingredient list for recipe id: " + recipeId);
 
@@ -36,16 +36,16 @@ public class IngredientController {
         return "recipe/ingredient/list";
     }
 
-    @GetMapping
-    @RequestMapping("/{recipeId}/ingredient/{ingredientId}/show")
+//    @GetMapping
+    @GetMapping("/{recipeId}/ingredient/{ingredientId}/show")
     public String showRecipeIngredient(@PathVariable Long recipeId, @PathVariable Long ingredientId, Model model) {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
 
         return "recipe/ingredient/show";
     }
 
-    @GetMapping
-    @RequestMapping("/{recipeId}/ingredient/new")
+//    @GetMapping
+    @GetMapping("/{recipeId}/ingredient/new")
     public String newIngredient(@PathVariable Long recipeId, Model model) {
         RecipeCommand recipeCommand = recipeService.findCommandById(recipeId);
         //todo raise exception if null
@@ -61,8 +61,8 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
-    @GetMapping
-    @RequestMapping("/{recipeId}/ingredient/{ingredientId}/update")
+//    @GetMapping
+    @GetMapping("/{recipeId}/ingredient/{ingredientId}/update")
     public String updateIngredientOfRecipe(@PathVariable Long recipeId,
                                            @PathVariable Long ingredientId, Model model) {
         model.addAttribute("ingredient", ingredientService.findByRecipeIdAndIngredientId(recipeId, ingredientId));
@@ -72,8 +72,8 @@ public class IngredientController {
         return "recipe/ingredient/ingredientform";
     }
 
-    @PostMapping
-    @RequestMapping("/{recipeId}/ingredient")
+//    @PostMapping
+    @GetMapping("/{recipeId}/ingredient")
     public String saveOrUpdate(@ModelAttribute IngredientCommand ingredientCommand) {
         IngredientCommand savedIngredientCommand = ingredientService.saveIngredientCommand(ingredientCommand);
 
