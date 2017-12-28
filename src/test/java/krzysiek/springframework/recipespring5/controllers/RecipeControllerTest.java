@@ -38,7 +38,8 @@ public class RecipeControllerTest {
         MockitoAnnotations.initMocks(this);
 
         recipeController = new RecipeController(recipeService);
-        mockMvc = MockMvcBuilders.standaloneSetup(recipeController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(recipeController)
+                .setControllerAdvice(new ControllerExceptionHandler()).build();
     }
 
     @Test
@@ -66,7 +67,7 @@ public class RecipeControllerTest {
 
     @Test
     public void getRecipeTestBadRequest() throws Exception {
-        
+
         mockMvc.perform(get("/recipe/someString/show"))
                 .andExpect(status().isBadRequest())
                 .andExpect(view().name("400error"));
