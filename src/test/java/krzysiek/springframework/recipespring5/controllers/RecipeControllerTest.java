@@ -41,7 +41,7 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testGetRecipe() throws Exception {
+    public void getRecipeTest() throws Exception {
         Recipe recipe = new Recipe();
         Long id = 1L;
         recipe.setId(id);
@@ -55,17 +55,17 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testGetNewRecipeForm() throws Exception {
+    public void getNewRecipeFormTest() throws Exception {
 
         mockMvc.perform(get("/recipe/new"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/recipeform"))
-                .andExpect(model().attributeExists("recipe"))
-                .andExpect(model().attributeExists("difficult"));
+                .andExpect(model().attributeExists("recipe"));
+//                .andExpect(model().attributeExists("difficult"));
     }
 
     @Test
-    public void testPostNewRecipeForm() throws Exception {
+    public void postNewRecipeFormTest() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(2L);
 
@@ -82,7 +82,7 @@ public class RecipeControllerTest {
 
 
     @Test
-    public void testGetUpdateView() throws Exception {
+    public void getUpdateViewTest() throws Exception {
         RecipeCommand recipeCommand = new RecipeCommand();
         recipeCommand.setId(2L);
 
@@ -95,7 +95,7 @@ public class RecipeControllerTest {
     }
 
     @Test
-    public void testDeleteById() throws Exception {
+    public void deleteByIdTest() throws Exception {
         mockMvc.perform(get("/recipe/1/delete"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/index"));

@@ -73,7 +73,7 @@ public class IngredientController {
     }
 
 //    @PostMapping
-    @GetMapping("/{recipeId}/ingredient")
+    @PostMapping("/{recipeId}/ingredient")
     public String saveOrUpdate(@ModelAttribute IngredientCommand ingredientCommand) {
         IngredientCommand savedIngredientCommand = ingredientService.saveIngredientCommand(ingredientCommand);
 
