@@ -2,6 +2,7 @@ package krzysiek.springframework.recipespring5.controllers;
 
 import krzysiek.springframework.recipespring5.commands.RecipeCommand;
 import krzysiek.springframework.recipespring5.domain.Recipe;
+import krzysiek.springframework.recipespring5.exception.NotFoundException;
 import krzysiek.springframework.recipespring5.services.RecipeServiceImpl;
 import org.junit.Before;
 import org.junit.Test;
@@ -52,6 +53,14 @@ public class RecipeControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("recipe/show"))
                 .andExpect(model().attributeExists("recipe"));
+    }
+
+    @Test
+    public void getRecipeTestNotFound() throws Exception {
+        when(recipeService.findById(anyLong())).thenThrow(NotFoundException.class);
+
+        mockMvc.perform(get("/recipe/1/show"))
+                .andExpect(status().isNotFound());
     }
 
     @Test
