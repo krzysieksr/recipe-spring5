@@ -24,8 +24,8 @@ public class RecipeController {
 
     //    @GetMapping
     @GetMapping("/{id}/show")
-    public String showById(@PathVariable Long id, Model model) {
-        model.addAttribute("recipe", recipeService.findById(id));
+    public String showById(@PathVariable String id, Model model) {
+        model.addAttribute("recipe", recipeService.findById(new Long(id)));
         return "recipe/show";
     }
 
@@ -40,8 +40,8 @@ public class RecipeController {
 
     //    @GetMapping
     @GetMapping("/{id}/update")
-    public String updateRecipe(@PathVariable Long id, Model model) {
-        model.addAttribute("recipe", recipeService.findCommandById(id));
+    public String updateRecipe(@PathVariable String id, Model model) {
+        model.addAttribute("recipe", recipeService.findCommandById(new Long(id)));
 
         return "recipe/recipeform";
     }
@@ -56,10 +56,10 @@ public class RecipeController {
 
     //    @GetMapping
     @GetMapping("/{id}/delete")
-    public String deleteById(@PathVariable Long id) {
+    public String deleteById(@PathVariable String id) {
         log.debug("Deleting id: " + id);
 
-        recipeService.deleteById(id);
+        recipeService.deleteById(new Long(id));
 
         return "redirect:/index";
     }
@@ -74,6 +74,21 @@ public class RecipeController {
         ModelAndView modelAndView = new ModelAndView();
 
         modelAndView.setViewName("404error");
+        modelAndView.addObject("exception", exception);
+
+        return modelAndView;
+    }
+
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ExceptionHandler(NumberFormatException.class)
+    public ModelAndView handleNumberFormatException(Exception exception) {
+
+        log.error("Handling number format exception");
+        log.error(exception.getMessage());
+
+        ModelAndView modelAndView = new ModelAndView();
+
+        modelAndView.setViewName("400error");
         modelAndView.addObject("exception", exception);
 
         return modelAndView;

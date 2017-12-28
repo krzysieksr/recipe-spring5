@@ -81,6 +81,13 @@ public class RecipeServiceImplTest {
         //should boom xD
     }
 
+    @Test(expected = NumberFormatException.class)
+    public void findByIdTestBadRequest() {
+        Recipe recipeReturned = recipeService.findById(Long.valueOf("some string"));
+
+        //should boom xD
+    }
+
     @Test
     public void findRecipeCommandByIdTest() {
         Long id = 1L;
